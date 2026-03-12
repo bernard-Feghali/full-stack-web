@@ -14,6 +14,8 @@ function CaseForm() {
     setError('')
 
     try {
+      const token = localStorage.getItem('token')
+
       const formData = new FormData()
       formData.append('title', title)
       formData.append('description', description)
@@ -24,6 +26,9 @@ function CaseForm() {
 
       const response = await fetch('http://localhost:5000/cases', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       })
 

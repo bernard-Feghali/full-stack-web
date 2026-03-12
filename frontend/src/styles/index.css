@@ -273,3 +273,13 @@ img {
   flex-direction: column;
   gap: 16px;
 }
+.admin-sidebar-nav button {
+  margin-top: 10px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color: #1e1e1e;
+  cursor: pointer;
+  text-align: left;
+}

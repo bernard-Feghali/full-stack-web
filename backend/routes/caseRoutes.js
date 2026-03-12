@@ -6,9 +6,10 @@ const {
   deleteCase,
 } = require('../controllers/caseController')
 const upload = require('../middleware/uploadMiddlerware')
+const verifyToken = require('../middleware/authMiddleware')
 
 router.get('/', getCases)
-router.post('/', upload.single('image'), createCase)
-router.delete('/:id', deleteCase)
+router.post('/', verifyToken, upload.single('image'), createCase)
+router.delete('/:id', verifyToken, deleteCase)
 
 module.exports = router
