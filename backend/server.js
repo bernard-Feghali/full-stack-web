@@ -5,6 +5,7 @@ require('dotenv').config()
 
 const pool = require('./config/db')
 const adminRoutes = require('./routes/adminRoutes')
+const caseRoutes = require('./routes/caseRoutes')
 
 const app = express()
 
@@ -33,6 +34,7 @@ app.get('/test-db', async (req, res) => {
 })
 
 app.use('/admin', adminRoutes)
+app.use('/cases', caseRoutes)
 
 const PORT = process.env.PORT || 5000
 
