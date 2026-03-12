@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f6f2;
+  color: #1f1f1f;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 20px 0;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav nav {
+  display: flex;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    url('https://via.placeholder.com/1400x600?text=Law+Office') center/cover no-repeat;
+  color: white;
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.cases-section,
+.contact-section {
+  padding: 70px 0;
+}
+
+.cases-section h2,
+.contact-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2rem;
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.case-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.case-content {
+  padding: 20px;
+}
+
+.case-content h3 {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.contact-form {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1e1e1e;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.footer {
+  background-color: #1e1e1e;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.admin-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f1eb;
+  padding: 20px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.admin-login-card h1 {
+  margin-bottom: 10px;
+}
+
+.admin-login-card p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-login-form input,
+.case-form input,
+.case-form textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.admin-login-form button,
+.case-form button,
+.admin-case-actions button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #1e1e1e;
+  color: white;
+  cursor: pointer;
+}
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f6f2;
+}
+
+.admin-sidebar {
+  width: 240px;
+  background: #1e1e1e;
+  color: white;
+  padding: 30px 20px;
+}
+
+.admin-sidebar h2 {
+  margin-bottom: 24px;
+}
+
+.admin-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-sidebar-nav a {
+  color: white;
+  opacity: 0.9;
+}
+
+.admin-sidebar-nav a:hover {
+  opacity: 1;
+}
+
+.admin-main {
+  flex: 1;
+  padding: 40px;
+}
+
+.dashboard-stats {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-stat-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.admin-cases-list {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-case-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.admin-case-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.case-form {
+  margin-top: 20px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
