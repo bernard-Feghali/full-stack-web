@@ -1,15 +1,38 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 require('dotenv').config()
+
+const pool = require('./config/db')
+const adminRoutes = require('./routes/adminRoutes')
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.get('/', (req, res) => {
   res.send('Backend is running')
 })
+
+app.get('/test-db', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()')
+    res.json({
+      message: 'Database connected successfully',
+      time: result.rows[0].now,
+    })
+  } catch (error) {
+    console.error('DB ERROR:', error.message)
+    res.status(500).json({
+      error: 'Database connection failed',
+      details: error.message,
+    })
+  }
+})
+
+app.use('/admin', adminRoutes)
 
 const PORT = process.env.PORT || 5000
 
