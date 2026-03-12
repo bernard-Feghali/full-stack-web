@@ -4,9 +4,15 @@ function AdminSidebar() {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    navigate('/admin/login')
-  }
+
+  const confirmed = window.confirm("Are you sure you want to logout?")
+
+  if(!confirmed) return
+
+  localStorage.removeItem("token")
+  navigate("/admin/login")
+
+}
 
   return (
     <aside className="admin-sidebar">
@@ -16,6 +22,7 @@ function AdminSidebar() {
         <Link to="/admin/dashboard">Dashboard</Link>
         <Link to="/admin/cases">Manage Cases</Link>
         <Link to="/admin/cases/new">Add New Case</Link>
+        <Link to="/admin/messages">Messages</Link>
         <button onClick={handleLogout}>Logout</button>
       </nav>
     </aside>

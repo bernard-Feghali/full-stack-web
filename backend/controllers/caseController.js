@@ -12,6 +12,23 @@ const getCases = async (req, res) => {
   }
 }
 
+const getCaseById = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const result = await pool.query('SELECT * FROM cases WHERE id = $1', [id])
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Case not found' })
+    }
+
+    res.json(result.rows[0])
+  } catch (error) {
+    console.error('GET CASE BY ID ERROR:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
 const createCase = async (req, res) => {
   try {
     const { title, description } = req.body
@@ -38,6 +55,41 @@ const createCase = async (req, res) => {
   }
 }
 
+const updateCase = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { title, description } = req.body
+
+    if (!title || !description) {
+      return res
+        .status(400)
+        .json({ message: 'Title and description are required' })
+    }
+
+    const existingCase = await pool.query('SELECT * FROM cases WHERE id = $1', [id])
+
+    if (existingCase.rows.length === 0) {
+      return res.status(404).json({ message: 'Case not found' })
+    }
+
+    const oldCase = existingCase.rows[0]
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : oldCase.image_url
+
+    const result = await pool.query(
+      'UPDATE cases SET title = $1, description = $2, image_url = $3 WHERE id = $4 RETURNING *',
+      [title, description, imageUrl, id]
+    )
+
+    res.json({
+      message: 'Case updated successfully',
+      case: result.rows[0],
+    })
+  } catch (error) {
+    console.error('UPDATE CASE ERROR:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
 const deleteCase = async (req, res) => {
   try {
     const { id } = req.params
@@ -60,6 +112,8 @@ const deleteCase = async (req, res) => {
 
 module.exports = {
   getCases,
+  getCaseById,
   createCase,
+  updateCase,
   deleteCase,
 }

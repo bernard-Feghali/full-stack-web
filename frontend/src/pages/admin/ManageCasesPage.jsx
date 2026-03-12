@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AdminSidebar from '../../components/admin/AdminSidebar.jsx'
 
 function ManageCasesPage() {
+  const navigate = useNavigate()
+
   const [cases, setCases] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -30,7 +33,7 @@ function ManageCasesPage() {
     fetchCases()
   }, [])
 
-    const handleDelete = async (id) => {
+  const handleDelete = async (id) => {
     const confirmed = window.confirm('Are you sure you want to delete this case?')
 
     if (!confirmed) return
@@ -84,7 +87,12 @@ function ManageCasesPage() {
                   </div>
 
                   <div className="admin-case-actions">
-                    <button onClick={() => handleDelete(item.id)}>Delete</button>
+                    <button onClick={() => navigate(`/admin/cases/edit/${item.id}`)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(item.id)}>
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))

@@ -1,0 +1,43 @@
+const pool = require('../config/db')
+
+const createContactMessage = async (req, res) => {
+  try {
+    const { name, email, message } = req.body
+
+    if (!name || !email || !message) {
+      return res
+        .status(400)
+        .json({ message: 'Name, email, and message are required' })
+    }
+
+    const result = await pool.query(
+      'INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3) RETURNING *',
+      [name, email, message]
+    )
+
+    res.status(201).json({
+      message: 'Message sent successfully',
+      contact: result.rows[0],
+    })
+  } catch (error) {
+    console.error('CREATE CONTACT ERROR:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
+const getContactMessages = async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM contacts ORDER BY created_at DESC'
+    )
+    res.json(result.rows)
+  } catch (error) {
+    console.error('GET CONTACTS ERROR:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
+module.exports = {
+  createContactMessage,
+  getContactMessages,
+}
