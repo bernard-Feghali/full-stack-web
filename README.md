@@ -1,0 +1,10 @@
+to run this website:
+navigate through cmd to /frontend then run "npm run dev" for the frontend run
+navigate through cmd to /backend then run "npm run dev" for the server
+it will most probably run on localhost:5000 for the server
+localhost:5173 for frontend.
+
+
+
+
+this website is about cases exhibition with descriptive photos and verbal descriptions.
