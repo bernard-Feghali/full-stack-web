@@ -31,18 +31,18 @@ const getCaseById = async (req, res) => {
 
 const createCase = async (req, res) => {
   try {
-    const { title, description } = req.body
+    const { title, description, category } = req.body
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : null
 
-    if (!title || !description) {
+    if (!title || !description || !category) {
       return res
         .status(400)
-        .json({ message: 'Title and description are required' })
+        .json({ message: 'Title, description, and category are required' })
     }
 
     const result = await pool.query(
-      'INSERT INTO cases (title, description, image_url) VALUES ($1, $2, $3) RETURNING *',
-      [title, description, imageUrl]
+      'INSERT INTO cases (title, description, image_url, category) VALUES ($1, $2, $3, $4) RETURNING *',
+      [title, description, imageUrl, category]
     )
 
     res.status(201).json({
@@ -58,12 +58,12 @@ const createCase = async (req, res) => {
 const updateCase = async (req, res) => {
   try {
     const { id } = req.params
-    const { title, description } = req.body
+    const { title, description, category } = req.body
 
-    if (!title || !description) {
+    if (!title || !description || !category) {
       return res
         .status(400)
-        .json({ message: 'Title and description are required' })
+        .json({ message: 'Title, description, and category are required' })
     }
 
     const existingCase = await pool.query('SELECT * FROM cases WHERE id = $1', [id])
@@ -76,8 +76,8 @@ const updateCase = async (req, res) => {
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : oldCase.image_url
 
     const result = await pool.query(
-      'UPDATE cases SET title = $1, description = $2, image_url = $3 WHERE id = $4 RETURNING *',
-      [title, description, imageUrl, id]
+      'UPDATE cases SET title = $1, description = $2, image_url = $3, category = $4 WHERE id = $5 RETURNING *',
+      [title, description, imageUrl, category, id]
     )
 
     res.json({

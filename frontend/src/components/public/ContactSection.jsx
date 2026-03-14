@@ -14,7 +14,7 @@ function ContactSection() {
     setError('')
 
     try {
-      const response = await fetch('http://localhost:5000/contact', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,45 +39,50 @@ function ContactSection() {
   }
 
   return (
-    <section id="contact" className="contact-section">
-      <div className="container">
-        <h2>Contact</h2>
+    <div className="contact-form-wrapper">
+      <span className="section-tag">Send a Message</span>
+      <h2>Request Legal Assistance</h2>
+      <p className="contact-form-intro">
+        Fill in the form below and the office will get back to you as soon as
+        possible.
+      </p>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <textarea
-            name="message"
-            rows="6"
-            placeholder="Your Message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-          />
+        <textarea
+          name="message"
+          rows="7"
+          placeholder="Tell us briefly how we can help you"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          required
+        />
 
-          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+        {successMessage && (
+          <p className="form-success-message">{successMessage}</p>
+        )}
+        {error && <p className="form-error-message">{error}</p>}
 
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
-    </section>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
   )
 }
 

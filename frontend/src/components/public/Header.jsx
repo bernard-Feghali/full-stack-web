@@ -1,11 +1,16 @@
+import { Link } from 'react-router-dom'
+
 function Header() {
   return (
     <header className="header">
       <div className="container nav">
         <h1 className="logo">Law Office</h1>
-        <nav>
-          <a href="#cases">Cases</a>
-          <a href="#contact">Contact</a>
+
+        <nav className="nav-links">
+          <Link to="/about">Home</Link>
+          <Link to="/legal-services">Legal Services</Link>
+          <Link to="/notary-services">Notary Services</Link>
+          <Link to="/contact">Media & Contact</Link>
         </nav>
       </div>
     </header>

@@ -83,6 +83,7 @@ function ManageCasesPage() {
                 <div key={item.id} className="admin-case-row">
                   <div>
                     <h3>{item.title}</h3>
+                    <p style={{ fontWeight: '600', marginBottom: '8px' }}>{item.category}</p>
                     <p>{item.description}</p>
                   </div>
 

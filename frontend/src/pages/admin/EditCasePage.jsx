@@ -8,6 +8,7 @@ function EditCasePage() {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [category, setCategory] = useState('Regular Law')
   const [image, setImage] = useState(null)
   const [currentImage, setCurrentImage] = useState('')
   const [loading, setLoading] = useState(true)
@@ -17,7 +18,7 @@ function EditCasePage() {
   useEffect(() => {
     const fetchCase = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/cases/${id}`)
+        const response = await fetch(`http://localhost:5000/cases/${id}`)
         const data = await response.json()
 
         if (!response.ok) {
@@ -28,6 +29,7 @@ function EditCasePage() {
 
         setTitle(data.title)
         setDescription(data.description)
+        setCategory(data.category || 'Regular Law')
         setCurrentImage(data.image_url || '')
       } catch (err) {
         setError('Server error')
@@ -51,12 +53,13 @@ function EditCasePage() {
       const formData = new FormData()
       formData.append('title', title)
       formData.append('description', description)
+      formData.append('category', category)
 
       if (image) {
         formData.append('image', image)
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/cases/${id}`, {
+      const response = await fetch(`http://localhost:5000/cases/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -100,6 +103,18 @@ function EditCasePage() {
               required
             />
 
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            >
+              <option value="Civil/Commercial">Civil/Commercial</option>
+              <option value="Human Rights and International Law">
+                Human Rights and International Law
+              </option>
+              <option value="Regular Law">Regular Law</option>
+            </select>
+
             <textarea
               rows="6"
               placeholder="Case Description"
@@ -112,7 +127,7 @@ function EditCasePage() {
               <div>
                 <p style={{ marginBottom: '10px' }}>Current image:</p>
                 <img
-                  src={`${import.meta.env.VITE_API_URL}${currentImage}`}
+                  src={`http://localhost:5000${currentImage}`}
                   alt="Current case"
                   style={{ width: '220px', borderRadius: '8px' }}
                 />

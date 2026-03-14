@@ -7,11 +7,21 @@ import AddCasePage from './pages/admin/AddCasePage.jsx'
 import MessagesPage from './pages/admin/MessagesPage.jsx'
 import ProtectedRoute from './components/admin/ProtectedRoute.jsx'
 import EditCasePage  from './pages/admin/EditCasePage.jsx'
+import NotaryServicesPage from "./pages/public/NotaryServicesPage.jsx"
+import ContactPage from "./pages/public/ContactPage.jsx"
+import AboutPage from './pages/public/AboutPage.jsx'
+import LegalServicesPage from './pages/public/LegalServicesPage.jsx'
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route path="/about" element ={<AboutPage/>} />
+      <Route path="/legal-services" element = {<LegalServicesPage/>}  />
+      <Route path="/notary-services" element={<NotaryServicesPage />} />
+      <Route path="/contact" element={<ContactPage />} /> 
+      
         
       <Route
         path="/admin/cases/edit/:id"
@@ -22,7 +32,7 @@ function App() {
         }
       />
 
-        <Route path="/" element={<HomePage />} />
+        
         <Route path="/admin/login" element={<AdminLoginPage />} />
 
         <Route

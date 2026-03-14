@@ -3,6 +3,7 @@ import { useState } from 'react'
 function CaseForm() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [category, setCategory] = useState('Regular Law')
   const [image, setImage] = useState(null)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -19,12 +20,13 @@ function CaseForm() {
       const formData = new FormData()
       formData.append('title', title)
       formData.append('description', description)
+      formData.append('category', category)
 
       if (image) {
         formData.append('image', image)
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/cases`, {
+      const response = await fetch('http://localhost:5000/cases', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,6 +44,7 @@ function CaseForm() {
       setMessage('Case added successfully')
       setTitle('')
       setDescription('')
+      setCategory('Regular Law')
       setImage(null)
       e.target.reset()
     } catch (err) {
@@ -59,6 +62,18 @@ function CaseForm() {
         onChange={(e) => setTitle(e.target.value)}
         required
       />
+
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        required
+      >
+        <option value="Civil/Commercial">Civil/Commercial</option>
+        <option value="Human Rights and International Law">
+          Human Rights and International Law
+        </option>
+        <option value="Regular Law">Regular Law</option>
+      </select>
 
       <textarea
         name="description"
