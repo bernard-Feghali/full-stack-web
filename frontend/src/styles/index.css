@@ -34,7 +34,7 @@ img {
 .header {
   background-color: #1e1e1e;
   color: white;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 .nav {
@@ -1167,3 +1167,45 @@ grid-template-columns:1fr;
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+
+.logoSet img {
+  height: 100px;
+  width: auto;
+}
+
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoSet img {
+  height: 120px;
+  width: auto;
+}
+
+.logo {
+  color: white;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.brandFooter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 318px;
+}
+
