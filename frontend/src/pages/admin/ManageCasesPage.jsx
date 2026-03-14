@@ -12,7 +12,7 @@ function ManageCasesPage() {
 
   const fetchCases = async () => {
     try {
-      const response = await fetch('http://localhost:5000/cases')
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/cases`)
       const data = await response.json()
 
       if (!response.ok) {
@@ -41,7 +41,7 @@ function ManageCasesPage() {
     try {
       const token = localStorage.getItem('token')
 
-      const response = await fetch(`http://localhost:5000/cases/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/cases/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -17,7 +17,7 @@ function EditCasePage() {
   useEffect(() => {
     const fetchCase = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/cases/${id}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cases/${id}`)
         const data = await response.json()
 
         if (!response.ok) {
@@ -56,7 +56,7 @@ function EditCasePage() {
         formData.append('image', image)
       }
 
-      const response = await fetch(`http://localhost:5000/cases/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/cases/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -112,7 +112,7 @@ function EditCasePage() {
               <div>
                 <p style={{ marginBottom: '10px' }}>Current image:</p>
                 <img
-                  src={`http://localhost:5000${currentImage}`}
+                  src={`${import.meta.env.VITE_API_URL}${currentImage}`}
                   alt="Current case"
                   style={{ width: '220px', borderRadius: '8px' }}
                 />
