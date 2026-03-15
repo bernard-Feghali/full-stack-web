@@ -1,5 +1,12 @@
 const pool = require('../config/db')
 
+const validCategories = [
+  'General Cases',
+  'Civil/Commercial',
+  'Regulatory Law',
+  'Human Rights',
+]
+
 const getCases = async (req, res) => {
   try {
     const result = await pool.query(
@@ -29,9 +36,51 @@ const getCaseById = async (req, res) => {
   }
 }
 
+const validateReference = (category, referenceLabel, referenceUrl) => {
+  if (category !== 'General Cases') {
+    return {
+      referenceLabel: null,
+      referenceUrl: null,
+    }
+  }
+
+  const cleanLabel = referenceLabel?.trim() || ''
+  const cleanUrl = referenceUrl?.trim() || ''
+
+  if (!cleanLabel && !cleanUrl) {
+    return {
+      referenceLabel: null,
+      referenceUrl: null,
+    }
+  }
+
+  if ((cleanLabel && !cleanUrl) || (!cleanLabel && cleanUrl)) {
+    throw new Error(
+      'For General Cases, both reference label and reference URL must be provided together'
+    )
+  }
+
+  const wordCount = cleanLabel.split(/\s+/).filter(Boolean).length
+  if (wordCount > 2) {
+    throw new Error('Reference label must be one or two words maximum')
+  }
+
+  return {
+    referenceLabel: cleanLabel,
+    referenceUrl: cleanUrl,
+  }
+}
+
 const createCase = async (req, res) => {
   try {
-    const { title, description, category } = req.body
+    const {
+      title,
+      description,
+      category,
+      reference_url,
+      reference_label,
+    } = req.body
+
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : null
 
     if (!title || !description || !category) {
@@ -40,9 +89,34 @@ const createCase = async (req, res) => {
         .json({ message: 'Title, description, and category are required' })
     }
 
+    if (!validCategories.includes(category)) {
+      return res.status(400).json({ message: 'Invalid case category' })
+    }
+
+    let validatedReference
+    try {
+      validatedReference = validateReference(
+        category,
+        reference_label,
+        reference_url
+      )
+    } catch (validationError) {
+      return res.status(400).json({ message: validationError.message })
+    }
+
     const result = await pool.query(
-      'INSERT INTO cases (title, description, image_url, category) VALUES ($1, $2, $3, $4) RETURNING *',
-      [title, description, imageUrl, category]
+      `INSERT INTO cases
+        (title, description, image_url, category, reference_url, reference_label)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING *`,
+      [
+        title,
+        description,
+        imageUrl,
+        category,
+        validatedReference.referenceUrl,
+        validatedReference.referenceLabel,
+      ]
     )
 
     res.status(201).json({
@@ -58,7 +132,13 @@ const createCase = async (req, res) => {
 const updateCase = async (req, res) => {
   try {
     const { id } = req.params
-    const { title, description, category } = req.body
+    const {
+      title,
+      description,
+      category,
+      reference_url,
+      reference_label,
+    } = req.body
 
     if (!title || !description || !category) {
       return res
@@ -66,7 +146,13 @@ const updateCase = async (req, res) => {
         .json({ message: 'Title, description, and category are required' })
     }
 
-    const existingCase = await pool.query('SELECT * FROM cases WHERE id = $1', [id])
+    if (!validCategories.includes(category)) {
+      return res.status(400).json({ message: 'Invalid case category' })
+    }
+
+    const existingCase = await pool.query('SELECT * FROM cases WHERE id = $1', [
+      id,
+    ])
 
     if (existingCase.rows.length === 0) {
       return res.status(404).json({ message: 'Case not found' })
@@ -75,9 +161,36 @@ const updateCase = async (req, res) => {
     const oldCase = existingCase.rows[0]
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : oldCase.image_url
 
+    let validatedReference
+    try {
+      validatedReference = validateReference(
+        category,
+        reference_label,
+        reference_url
+      )
+    } catch (validationError) {
+      return res.status(400).json({ message: validationError.message })
+    }
+
     const result = await pool.query(
-      'UPDATE cases SET title = $1, description = $2, image_url = $3, category = $4 WHERE id = $5 RETURNING *',
-      [title, description, imageUrl, category, id]
+      `UPDATE cases
+       SET title = $1,
+           description = $2,
+           image_url = $3,
+           category = $4,
+           reference_url = $5,
+           reference_label = $6
+       WHERE id = $7
+       RETURNING *`,
+      [
+        title,
+        description,
+        imageUrl,
+        category,
+        validatedReference.referenceUrl,
+        validatedReference.referenceLabel,
+        id,
+      ]
     )
 
     res.json({

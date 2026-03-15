@@ -45,22 +45,26 @@ function LegalServicesPage() {
 
   const filterOptions = [
     'All',
+    'General Cases',
     'Civil/Commercial',
-    'Human Rights and International Law',
-    'Regular Law',
+    'Regulatory Law',
+    'Human Rights',
   ]
 
   const filterCounts = useMemo(() => {
     return {
       All: cases.length,
+      'General Cases': cases.filter(
+        (item) => item.category === 'General Cases'
+      ).length,
       'Civil/Commercial': cases.filter(
         (item) => item.category === 'Civil/Commercial'
       ).length,
-      'Human Rights and International Law': cases.filter(
-        (item) => item.category === 'Human Rights and International Law'
+      'Regulatory Law': cases.filter(
+        (item) => item.category === 'Regulatory Law'
       ).length,
-      'Regular Law': cases.filter(
-        (item) => item.category === 'Regular Law'
+      'Human Rights': cases.filter(
+        (item) => item.category === 'Human Rights'
       ).length,
     }
   }, [cases])
@@ -72,14 +76,17 @@ function LegalServicesPage() {
 
   const groupedCases = useMemo(() => {
     return {
+      'General Cases': filteredCases.filter(
+        (item) => item.category === 'General Cases'
+      ),
       'Civil / Commercial': filteredCases.filter(
         (item) => item.category === 'Civil/Commercial'
       ),
-      'Human Rights & International Law': filteredCases.filter(
-        (item) => item.category === 'Human Rights and International Law'
+      'Regulatory Law': filteredCases.filter(
+        (item) => item.category === 'Regulatory Law'
       ),
-      'Regular Law': filteredCases.filter(
-        (item) => item.category === 'Regular Law'
+      'Human Rights and International Law': filteredCases.filter(
+        (item) => item.category === 'Human Rights'
       ),
     }
   }, [filteredCases])
@@ -87,9 +94,8 @@ function LegalServicesPage() {
   const hasAnyCases = filteredCases.length > 0
 
   const getFilterLabel = (option) => {
-    if (option === 'Human Rights and International Law') {
-      return 'Human Rights & International Law'
-    }
+    if (option === 'Civil/Commercial') return 'Civil / Commercial'
+    if (option == 'Human Rights') return 'Human Rights and International Law'
     return option
   }
 
@@ -199,13 +205,7 @@ function LegalServicesPage() {
                 <div className="legal-category-header">
                   <div className="legal-category-line"></div>
                   <div>
-                    <h2>
-                      {activeFilter === 'Civil/Commercial'
-                        ? 'Civil / Commercial'
-                        : activeFilter === 'Human Rights and International Law'
-                        ? 'Human Rights & International Law'
-                        : 'Regular Law'}
-                    </h2>
+                    <h2>{getFilterLabel(activeFilter)}</h2>
                     <p>
                       {filteredCases.length} featured case
                       {filteredCases.length > 1 ? 's' : ''} in this category.

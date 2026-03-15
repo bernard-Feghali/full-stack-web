@@ -1209,3 +1209,277 @@ grid-template-columns:1fr;
   padding-left: 318px;
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.35s ease;
+}
+
+.header-top {
+  background: transparent;
+  padding: 18px 0;
+}
+
+.header-scrolled {
+  background: #1b1b1b;
+  padding: 10px 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.header .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-top .nav {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoSet img {
+  height: 55px;
+  width: auto;
+}
+
+.logo {
+  color: white;
+  font-size: 1.4rem;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.7;
+}
+
+.hero {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  padding-top: 120px;
+}
+
+.hero-content {
+  color: white;
+  max-width: 760px;
+  text-align: left;
+}
+
+.hero-content h2 {
+  font-size: 3.4rem;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  background: #556b2f; /* olive green */
+  padding: 14px 0;
+
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoSet img {
+  height: 55px;
+  width: auto;
+}
+
+.logo {
+  color: black;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: black;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.7;
+}
+
+.footer p {
+  color: black;
+  font-size: 0.95rem;
+}
+
+.footer {
+  background-color: #556b2f;
+}
+
+.about-hero-banner {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 120px 20px;
+  margin: 40px auto;
+  max-width: 1200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.about-hero-content {
+  max-width: 850px;
+  text-align: center;
+}
+
+.about-hero-content h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 18px;
+  color: #1b1b1b;
+}
+
+.about-hero-content p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.light-tag {
+  color: #c6a96b;
+}
+
+.contact-hero-banner {
+  background: white;
+  border-radius: 18px;
+  padding: 120px 20px;
+  margin: 40px auto;
+  max-width: 1200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.contact-hero-content {
+  max-width: 850px;
+  text-align: center;
+}
+
+.contact-hero-content h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 18px;
+  color: #1b1b1b;
+}
+
+.contact-hero-content p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.light-tag {
+  color: #c6a96b;
+}
+
+
+.articles-card {
+  margin-top: 30px;
+}
+
+.footer-media-line {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: black;
+}
+
+.footer-contact-link {
+  color: #c6a96b; /* gold accent */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-contact-link:hover {
+  text-decoration: underline;
+}
+
+.brandFooter{
+  padding-left: 318px;
+}
+
+.case-reference {
+  margin-top: 10px;
+}
+
+.case-reference a {
+  font-size: 0.85rem;
+  color: #c6a96b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.case-reference a:hover {
+  text-decoration: underline;
+}
+
+.case-reference {
+  margin-top: 10px;
+}
+
+.case-reference a {
+  font-size: 0.85rem;
+  color: #c6a96b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.case-reference a:hover {
+  text-decoration: underline;
+}

@@ -22,6 +22,8 @@ function AdminSidebar() {
         <Link to="/admin/dashboard">Dashboard</Link>
         <Link to="/admin/cases">Manage Cases</Link>
         <Link to="/admin/cases/new">Add New Case</Link>
+        <Link to="/admin/articles">Articles</Link>
+        <Link to="/admin/notary-services">Notary Services</Link>
         <Link to="/admin/messages">Messages</Link>
         <button onClick={handleLogout}>Logout</button>
       </nav>

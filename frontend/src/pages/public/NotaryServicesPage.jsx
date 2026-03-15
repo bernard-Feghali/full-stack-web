@@ -1,45 +1,34 @@
+import { useEffect, useState } from 'react'
 import Header from '../../components/public/Header.jsx'
 import Footer from '../../components/public/Footer.jsx'
 
 function NotaryServicesPage() {
-  const services = [
-    {
-      id: 1,
-      title: 'Document Certification',
-      description:
-        'Certification and notarization of official and legal documents with care, accuracy, and confidentiality.',
-    },
-    {
-      id: 2,
-      title: 'Signature Authentication',
-      description:
-        'Verification and authentication of signatures for agreements, declarations, and official records.',
-    },
-    {
-      id: 3,
-      title: 'Affidavits and Declarations',
-      description:
-        'Preparation and notarization of sworn statements, affidavits, and declarations for legal use.',
-    },
-    {
-      id: 4,
-      title: 'Power of Attorney Documents',
-      description:
-        'Support with powers of attorney and notarization of authorization documents where required.',
-    },
-    {
-      id: 5,
-      title: 'Certified Copies',
-      description:
-        'Issuing and certifying document copies in accordance with applicable legal procedures.',
-    },
-    {
-      id: 6,
-      title: 'Witnessing Legal Documents',
-      description:
-        'Professional witnessing of documents with attention to formal requirements and legal reliability.',
-    },
-  ]
+  const [services, setServices] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/notary-services')
+        const data = await response.json()
+
+        if (!response.ok) {
+          setError('Failed to load notary services')
+          setLoading(false)
+          return
+        }
+
+        setServices(data)
+      } catch (err) {
+        setError('Server error')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchServices()
+  }, [])
 
   return (
     <>
@@ -56,15 +45,41 @@ function NotaryServicesPage() {
             </p>
           </div>
 
-          <div className="service-page-grid">
-            {services.map((service) => (
-              <article key={service.id} className="service-page-card">
-                <div className="service-card-top-line"></div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-              </article>
-            ))}
-          </div>
+          {loading ? (
+            <div className="legal-page-status-box">
+              <p>Loading services...</p>
+            </div>
+          ) : error ? (
+            <div className="legal-page-status-box">
+              <p>{error}</p>
+            </div>
+          ) : services.length === 0 ? (
+            <div className="empty-category-card">
+              <p>No notary services have been added yet.</p>
+            </div>
+          ) : (
+            <div className="service-page-grid">
+              {services.map((service) => (
+                <article key={service.id} className="service-page-card">
+                  <div className="service-card-top-line"></div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+
+                  {service.reference_url && service.reference_label && (
+                    <div className="case-reference">
+                      <a
+                        href={service.reference_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {service.reference_label}
+                      </a>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </main>
 

@@ -10,7 +10,7 @@ function AboutPage() {
         <section className="about-hero-banner">
           <div className="container about-hero-content">
             <span className="section-tag light-tag">About</span>
-            <h1>Professional Legal Guidance With Integrity and Commitment</h1>
+            <h1>We are supported by a network of legal experts across Australia and overseas.</h1>
             <p>
               A law office dedicated to providing trusted legal representation,
               notary services, and professional client support with clarity,
@@ -23,20 +23,19 @@ function AboutPage() {
           <div className="container">
             <div className="about-layout">
               <div className="about-main-card">
-                <span className="section-tag">Who We Are</span>
-                <h2>Reliable Legal Support For Individuals and Businesses</h2>
+                <span className="section-tag">Who We Are & Why We Do What We Do</span>
+                <h2>Reliable Legal Support For Individuals</h2>
 
                 <p>
-                  This law office provides professional legal representation and
-                  notarial services with a strong focus on accuracy,
-                  confidentiality, and ethical legal practice.
+                  Zaydan Lawyers is a boutique law firm carrying forward the Zaydan family's generations long tradition of serving justice,
+                  a tradition rooted in West Asia and brought to Australia after the family was displaced by the region's resisted western colonisation.
+
+                  Today, two generations of Zaydan lawyers practice in Australia and New Zealand, led by Bernadette Zaydan.
+                  
+
+                  Justice isn't just what we do. It's who we are.
                 </p>
 
-                <p>
-                  With experience in legal documentation, consultation, and case
-                  handling, the office supports clients through important legal
-                  matters with care, professionalism, and attention to detail.
-                </p>
 
                 <p>
                   Every client is treated with respect and receives clear,
@@ -58,16 +57,17 @@ function AboutPage() {
                 <div className="about-feature-box">
                   <h4>Client-Centered Service</h4>
                   <p>
-                    The office focuses on understanding each client’s needs and
-                    offering practical legal support.
+                  We fight for justice outcomes, when laws are weaponised to strip people of their
+                  human rights, or to shut down their right to do business, we step in
                   </p>
                 </div>
 
                 <div className="about-feature-box">
                   <h4>Clear Communication</h4>
                   <p>
-                    Clients receive transparent explanations and dependable
-                    guidance throughout the process.
+                    Whether you're standing up to state overreach,
+                  defending your livelihood, or seeking justice across borders,
+                   we bring our experience to you.
                   </p>
                 </div>
               </div>
@@ -77,11 +77,11 @@ function AboutPage() {
               <div className="about-info-card">
                 <h3>Areas of Work</h3>
                 <ul>
-                  <li>Legal consultations</li>
-                  <li>Case representation</li>
-                  <li>Notary services</li>
-                  <li>Legal document preparation</li>
-                  <li>Contract review and certification</li>
+                  <li>Human Rights</li>
+                  <li>International Law</li>
+                  <li>Civil and Commercial disputes</li>
+                  <li>Notary Services</li>
+                  <li>Public and Regulatory Law</li>
                 </ul>
               </div>
 

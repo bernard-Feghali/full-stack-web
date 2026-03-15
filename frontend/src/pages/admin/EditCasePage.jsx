@@ -8,7 +8,9 @@ function EditCasePage() {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [category, setCategory] = useState('Regular Law')
+  const [category, setCategory] = useState('General Cases')
+  const [referenceLabel, setReferenceLabel] = useState('')
+  const [referenceUrl, setReferenceUrl] = useState('')
   const [image, setImage] = useState(null)
   const [currentImage, setCurrentImage] = useState('')
   const [loading, setLoading] = useState(true)
@@ -29,7 +31,9 @@ function EditCasePage() {
 
         setTitle(data.title)
         setDescription(data.description)
-        setCategory(data.category || 'Regular Law')
+        setCategory(data.category || 'General Cases')
+        setReferenceLabel(data.reference_label || '')
+        setReferenceUrl(data.reference_url || '')
         setCurrentImage(data.image_url || '')
       } catch (err) {
         setError('Server error')
@@ -47,6 +51,14 @@ function EditCasePage() {
     setMessage('')
     setError('')
 
+    const trimmedLabel = referenceLabel.trim()
+    const wordCount = trimmedLabel ? trimmedLabel.split(/\s+/).filter(Boolean).length : 0
+
+    if (category === 'General Cases' && trimmedLabel && wordCount > 2) {
+      setError('Reference label must be one or two words maximum')
+      return
+    }
+
     try {
       const token = localStorage.getItem('token')
 
@@ -54,6 +66,11 @@ function EditCasePage() {
       formData.append('title', title)
       formData.append('description', description)
       formData.append('category', category)
+
+      if (category === 'General Cases') {
+        formData.append('reference_label', referenceLabel)
+        formData.append('reference_url', referenceUrl)
+      }
 
       if (image) {
         formData.append('image', image)
@@ -105,15 +122,39 @@ function EditCasePage() {
 
             <select
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value)
+                if (e.target.value !== 'General Cases') {
+                  setReferenceLabel('')
+                  setReferenceUrl('')
+                }
+              }}
               required
             >
+              <option value="General Cases">General Cases</option>
               <option value="Civil/Commercial">Civil/Commercial</option>
-              <option value="Human Rights and International Law">
-                Human Rights and International Law
-              </option>
-              <option value="Regular Law">Regular Law</option>
+              <option value="Regulatory Law">Regulatory Law</option>
+              <option value="Human Rights">Human Rights</option>
             </select>
+
+            {category === 'General Cases' && (
+              <>
+                <input
+                  type="text"
+                  placeholder="Reference label (1–2 words)"
+                  value={referenceLabel}
+                  onChange={(e) => setReferenceLabel(e.target.value)}
+                  maxLength="50"
+                />
+
+                <input
+                  type="url"
+                  placeholder="Reference URL"
+                  value={referenceUrl}
+                  onChange={(e) => setReferenceUrl(e.target.value)}
+                />
+              </>
+            )}
 
             <textarea
               rows="6"

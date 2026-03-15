@@ -11,11 +11,16 @@ import NotaryServicesPage from "./pages/public/NotaryServicesPage.jsx"
 import ContactPage from "./pages/public/ContactPage.jsx"
 import AboutPage from './pages/public/AboutPage.jsx'
 import LegalServicesPage from './pages/public/LegalServicesPage.jsx'
+import ArticlesPage from './pages/admin/ArticlesPage.jsx'
+import NotaryServicesAdminPage from './pages/admin/NotaryServicesAdminPage.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
+import EditNotaryServicePage from './pages/admin/EditNotaryServicePage.jsx'
 
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Routes>
       <Route path="/about" element ={<AboutPage/>} />
       <Route path="/legal-services" element = {<LegalServicesPage/>}  />
@@ -23,6 +28,34 @@ function App() {
       <Route path="/contact" element={<ContactPage />} /> 
       
         
+      <Route
+        path="/admin/articles"
+        element={
+          <ProtectedRoute>
+            <ArticlesPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/notary-services"
+        element={
+          <ProtectedRoute>
+            <NotaryServicesAdminPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/notary-services/edit/:id"
+        element={
+          <ProtectedRoute>
+            <EditNotaryServicePage />
+          </ProtectedRoute>
+        }
+      />
+
+
       <Route
         path="/admin/cases/edit/:id"
         element={

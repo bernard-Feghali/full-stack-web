@@ -1,4 +1,6 @@
 const dashboardRoutes = require('./routes/dashboardRoutes')
+const articleRoutes = require('./routes/articleRoutes')
+const notaryServiceRoutes = require('./routes/notaryServiceRoutes')
 
 const express = require('express')
 const cors = require('cors')
@@ -16,6 +18,9 @@ app.use(cors())
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use('/dashboard', dashboardRoutes)
+app.use('/articles', articleRoutes)
+app.use('/notary-services', notaryServiceRoutes)
+
 
 app.get('/', (req, res) => {
   res.send('Backend is running')

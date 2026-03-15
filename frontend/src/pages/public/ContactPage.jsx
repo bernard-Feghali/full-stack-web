@@ -1,8 +1,36 @@
+import { useEffect, useState } from 'react'
 import Header from '../../components/public/Header.jsx'
 import Footer from '../../components/public/Footer.jsx'
 import ContactSection from '../../components/public/ContactSection.jsx'
 
 function ContactPage() {
+  const [articles, setArticles] = useState([])
+  const [loadingArticles, setLoadingArticles] = useState(true)
+  const [articlesError, setArticlesError] = useState('')
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/articles')
+        const data = await response.json()
+
+        if (!response.ok) {
+          setArticlesError('Failed to load articles')
+          setLoadingArticles(false)
+          return
+        }
+
+        setArticles(data)
+      } catch (err) {
+        setArticlesError('Server error')
+      } finally {
+        setLoadingArticles(false)
+      }
+    }
+
+    fetchArticles()
+  }, [])
+
   return (
     <>
       <Header />
@@ -79,7 +107,7 @@ function ContactPage() {
                     </a>
 
                     <a
-                      href="https://linkedin.com"
+                      href="https://www.linkedin.com/in/bernadette-z-871026114/"
                       target="_blank"
                       rel="noreferrer"
                       className="media-link"
@@ -89,7 +117,7 @@ function ContactPage() {
                     </a>
 
                     <a
-                      href="https://wa.me/96100000000"
+                      href="https://wa.me/610431548738"
                       target="_blank"
                       rel="noreferrer"
                       className="media-link"
@@ -98,6 +126,38 @@ function ContactPage() {
                       <small>Direct and fast communication</small>
                     </a>
                   </div>
+                </div>
+
+                <div className="articles-card premium-card">
+                  <h2>Articles & Publications</h2>
+
+                  <p className="contact-card-intro">
+                    Insights, legal commentary, and professional articles written
+                    or contributed to by the office.
+                  </p>
+
+                  {loadingArticles ? (
+                    <p>Loading articles...</p>
+                  ) : articlesError ? (
+                    <p>{articlesError}</p>
+                  ) : articles.length === 0 ? (
+                    <p>No articles available yet.</p>
+                  ) : (
+                    <div className="media-links">
+                      {articles.map((article) => (
+                        <a
+                          key={article.id}
+                          href={article.url}
+                          className="media-link"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <span>{article.title}</span>
+                          <small>Open article</small>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
